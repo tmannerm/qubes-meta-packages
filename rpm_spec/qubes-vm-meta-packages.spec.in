@@ -4,45 +4,49 @@
 %define local_dist_name fedora
 %endif
 
+%if 0%{?suse_version} == 1500 && 0%{?is_opensuse}
+%define local_dist_name opensuse
+%endif
+
 Name:		qubes-vm-meta-packages
 Version:	@VERSION@
 Release:	1%{?dist}
 Summary:	Meta packages for Qubes-specific components
-BuildArch:  noarch
+BuildArch:	noarch
 
 Group:		System Environment/Base
 License:	GPLv2+
 URL:		https://www.qubes-os.org/
 
-Source0: %{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 
 %package -n qubes-vm-dependencies
-Summary:    Meta package with packages required in Qubes VM
-Requires:   qubes-core-agent
-Requires:   qubes-core-agent-systemd
-Requires:   qubes-gui-agent
-Requires:   xen-runtime
+Summary:	Meta package with packages required in Qubes VM
+Requires:	qubes-core-agent
+Requires:	qubes-core-agent-systemd
+Requires:	qubes-gui-agent
+Requires:	xen-runtime
 
 %description -n qubes-vm-dependencies
 This package depends on packages required to be installed in Qubes VM.
 
 %package -n qubes-vm-recommended
-Summary:    Meta package with packages recommended in Qubes VM
-Requires:   mate-notification-daemon
-Requires:   pulseaudio-qubes
-Requires:   qubes-core-agent-dom0-updates
-Requires:   qubes-core-agent-nautilus
-Requires:   qubes-core-agent-network-manager
-Requires:   qubes-core-agent-networking
-Requires:   qubes-core-agent-passwordless-root
-Requires:   qubes-gpg-split
-Requires:   qubes-img-converter
-Requires:   python2-qubesimgconverter
-Requires:   qubes-input-proxy-sender
-Requires:   qubes-mgmt-salt-vm-connector
-Requires:   qubes-pdf-converter
-Requires:   qubes-usb-proxy
-Requires:   thunderbird-qubes
+Summary:	Meta package with packages recommended in Qubes VM
+Requires:	mate-notification-daemon
+Requires:	pulseaudio-qubes
+Requires:	qubes-core-agent-dom0-updates
+Requires:	qubes-core-agent-nautilus
+Requires:	qubes-core-agent-network-manager
+Requires:	qubes-core-agent-networking
+Requires:	qubes-core-agent-passwordless-root
+Requires:	qubes-gpg-split
+Requires:	qubes-img-converter
+Requires:	python2-qubesimgconverter
+Requires:	qubes-input-proxy-sender
+Requires:	qubes-mgmt-salt-vm-connector
+Requires:	qubes-pdf-converter
+Requires:	qubes-usb-proxy
+Requires:	thunderbird-qubes
 
 %description -n qubes-vm-recommended
 Installing this package is recommended to have full functionality available in
@@ -52,22 +56,29 @@ Qubes VM.
 Meta packages for easy maintenance of installed Qubes OS specific packages.
 
 %package -n qubes-repo-contrib
-Summary: Repository definition for packages contributed to Qubes OS
+Summary:	Repository definition for packages contributed to Qubes OS
 
 %description -n qubes-repo-contrib
 Contrib repository contains packages written/adopted specifically for Qubes,
 not available in upstream repositories.
 
 %package -n qubes-vm-guivm
-Summary: Meta package with packages required in a GuiVM
-Requires: xorg-x11-server-Xorg
-Requires: xorg-x11-server-Xephyr
-Requires: xorg-x11-utils
-Requires: xorg-x11-xkb-utils
-Requires: qubes-gui-daemon
-Requires: qubes-core-admin-client
-Requires: qubes-artwork
-Requires: qubes-menus
+Summary:	Meta package with packages required in a GuiVM
+%if 0%{?suse_version} == 1500 && 0%{?is_opensuse}
+Requires:	xorg-x11
+Requires:	xorg-x11-server
+Requires:	xorg-x11-server-extra
+Requires:	xorg-x11-essentials
+%else
+Requires:	xorg-x11-server-Xorg
+Requires:	xorg-x11-server-Xephyr
+Requires:	xorg-x11-utils
+Requires:	xorg-x11-xkb-utils
+%endif
+Requires:	qubes-gui-daemon
+Requires:	qubes-core-admin-client
+Requires:	qubes-artwork
+Requires:	qubes-menus
 
 %description -n qubes-vm-guivm
 This package depends on packages required to be installed in a GuiVM.
