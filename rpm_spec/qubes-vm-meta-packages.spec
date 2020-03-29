@@ -2,7 +2,7 @@ Name:		qubes-vm-meta-packages
 Version:	%(cat version)
 Release:	1%{?dist}
 Summary:	Meta packages for Qubes-specific components
-BuildArch:  noarch
+BuildArch:	noarch
 
 Group:		System Environment/Base
 License:	GPLv2+
@@ -42,7 +42,7 @@ Qubes VM.
 Meta packages for easy maintenance of installed Qubes OS specific packages.
 
 %package -n qubes-repo-contrib
-Summary: Repository definition for packages contributed to Qubes OS
+Summary:	Repository definition for packages contributed to Qubes OS
 
 %description -n qubes-repo-contrib
 Contrib repository contains packages written/adopted specifically for Qubes,
