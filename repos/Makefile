@@ -30,6 +30,10 @@ install-vm-centos: install-centos
 	install -d $(DESTDIR)/etc/yum.repos.d
 	install -m 0644 qubes-contrib-vm-r4.1.repo-centos $(DESTDIR)/etc/yum.repos.d/qubes-contrib-vm-r4.1.repo
 
+install-vm-opensuse: install-opensuse
+	install -d $(DESTDIR)/etc/yum.repos.d
+	install -m 0644 qubes-contrib-vm-r4.1.repo-opensuse $(DESTDIR)/etc/yum.repos.d/qubes-contrib-vm-r4.1.repo
+
 install-fedora:
 	install -d $(DESTDIR)/etc/pki/rpm-gpg/
 	install -m 0644 qubesos-contrib-release-4-fedora.asc \
@@ -42,3 +46,9 @@ install-centos:
 		$(DESTDIR)/etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-4-contrib-centos
 	ln -s RPM-GPG-KEY-qubes-4-contrib-centos \
 		$(DESTDIR)/etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-4.1-contrib-centos
+install-opensuse:
+	install -d $(DESTDIR)/etc/pki/rpm-gpg/
+	# Empty for now
+	touch $(DESTDIR)/etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-4-contrib-opensuse
+	ln -s RPM-GPG-KEY-qubes-4-contrib-centos \
+		$(DESTDIR)/etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-4.1-contrib-opensuse
