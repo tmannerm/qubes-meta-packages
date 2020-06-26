@@ -25,7 +25,11 @@ Summary:    Meta package with packages required in Qubes VM
 Requires:   qubes-core-agent
 Requires:   qubes-core-agent-systemd
 Requires:   qubes-gui-agent
+%if 0%{?suse_version} == 1500 && 0%{?is_opensuse}
+Requires:   xen
+%else
 Requires:   xen-runtime
+%endif
 
 %description -n qubes-vm-dependencies
 This package depends on packages required to be installed in Qubes VM.
@@ -69,6 +73,16 @@ Requires:   xorg-x11
 Requires:   xorg-x11-server
 Requires:   xorg-x11-server-extra
 Requires:   xorg-x11-essentials
+# In openSUSE Xorg utils are in separate packages
+# TODO Figure out what utils qubes really uses and include only those
+Requires:   xdpyinfo
+Requires:   xev
+Requires:   xlsatoms
+Requires:   xlsclients
+Requires:   xlsfonts
+Requires:   xprop
+Requires:   xvinfo
+Requires:   xwininfo
 %else
 Requires:   xorg-x11-server-Xorg
 Requires:   xorg-x11-server-Xephyr
