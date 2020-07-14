@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%define local_dist_name opensuse
+%else
+%define local_dist_name fedora
+%endif
+
 Name:		qubes-vm-meta-packages
 Version:	%(cat version)
 Release:	1%{?dist}
@@ -17,7 +23,6 @@ Summary:    Meta package with packages required in Qubes VM
 Requires:   qubes-core-vm
 Requires:   qubes-core-vm-systemd
 Requires:   qubes-gui-vm
-Requires:   xen-qubes-vm
 
 %description -n qubes-vm-dependencies
 This package depends on packages required to be installed in Qubes VM.
@@ -62,12 +67,17 @@ ln -sf . %{name}-%{version}
 %build
 
 %install
-make -C repos install-vm-fedora DESTDIR=$RPM_BUILD_ROOT
+make -C repos install-vm-%{local_dist_name} DESTDIR=$RPM_BUILD_ROOT
 
 %files -n qubes-repo-contrib
 %config(noreplace) /etc/yum.repos.d/qubes-contrib-vm-r3.2.repo
+%if 0%{?suse_version}
+/etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-3.2-contrib-%{local_dist_name}
+/etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-3-contrib-%{local_dist_name}
+%else
 /etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-3.2-contrib
 /etc/pki/rpm-gpg/RPM-GPG-KEY-qubes-3-contrib
+%endif
 
 %files -n qubes-vm-dependencies
 
