@@ -30,13 +30,14 @@ Requires:   xen
 %else
 Requires:   xen-runtime
 %endif
+Obsoletes:  xen-qubes-vm < 2001:4.9
 
 %description -n qubes-vm-dependencies
 This package depends on packages required to be installed in Qubes VM.
 
 %package -n qubes-vm-recommended
 Summary:    Meta package with packages recommended in Qubes VM
-Requires:   mate-notification-daemon
+Requires:   xfce4-notifyd
 Requires:   pulseaudio-qubes
 Requires:   qubes-core-agent-dom0-updates
 Requires:   qubes-core-agent-nautilus
@@ -45,7 +46,6 @@ Requires:   qubes-core-agent-networking
 Requires:   qubes-core-agent-passwordless-root
 Requires:   qubes-gpg-split
 Requires:   qubes-img-converter
-Requires:   python2-qubesimgconverter
 Requires:   qubes-input-proxy-sender
 Requires:   qubes-mgmt-salt-vm-connector
 Requires:   qubes-pdf-converter
@@ -93,6 +93,7 @@ Requires:   qubes-gui-daemon
 Requires:   qubes-core-admin-client
 Requires:   qubes-artwork
 Requires:   qubes-menus
+Requires:   qubes-input-proxy-receiver
 
 %description -n qubes-vm-guivm
 This package depends on packages required to be installed in a GuiVM.
@@ -103,7 +104,15 @@ This package depends on packages required to be installed in a GuiVM.
 %build
 
 %install
+# comps
+install -d -m 755 $RPM_BUILD_ROOT/usr/share/qubes
+install -m 644 comps/comps-vm.xml $RPM_BUILD_ROOT/usr/share/qubes/qubes-comps.xml
+
+# contrib repo
 make -C repos install-vm-%{local_dist_name} DESTDIR=$RPM_BUILD_ROOT
+
+%files
+/usr/share/qubes/qubes-comps.xml
 
 %files -n qubes-repo-contrib
 %config(noreplace) /etc/yum.repos.d/qubes-contrib-vm-r4.1.repo

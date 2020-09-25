@@ -8,6 +8,7 @@ Group:      System Environment/Base
 License:    GPLv2+
 URL:        https://www.qubes-os.org/
 
+Conflicts:  qubes-release < 4.1-0.26
 Source0: %{name}-%{version}.tar.gz
 
 %description
@@ -26,7 +27,15 @@ not available in upstream repositories.
 %build
 
 %install
+# comps file
+install -d -m 755 $RPM_BUILD_ROOT/usr/share/qubes
+install -m 644 comps/comps-dom0.xml $RPM_BUILD_ROOT/usr/share/qubes/qubes-comps.xml
+
+# contrib repo
 make -C repos install-dom0 DESTDIR=$RPM_BUILD_ROOT
+
+%files
+/usr/share/qubes/qubes-comps.xml
 
 %files -n qubes-repo-contrib
 %config(noreplace) /etc/yum.repos.d/qubes-contrib-dom0-r4.1.repo
